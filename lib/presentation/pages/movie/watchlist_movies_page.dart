@@ -7,7 +7,7 @@ import '../../../common/common.dart';
 import '../../presentation.dart';
 
 class WatchlistMoviesPage extends StatefulWidget {
-  static const ROUTE_NAME = '/watchlist-movie';
+  static const routeName = '/watchlist-movie';
 
   @override
   _WatchlistMoviesPageState createState() => _WatchlistMoviesPageState();
@@ -56,7 +56,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                   onTap: () {
                     Navigator.pushNamed(
                       context,
-                      MovieDetailPage.ROUTE_NAME,
+                      MovieDetailPage.routeName,
                       arguments: movie.id,
                     );
                   },

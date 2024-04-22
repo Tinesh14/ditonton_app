@@ -4,33 +4,33 @@ import 'package:provider/provider.dart';
 import '../../../common/common.dart';
 import '../../presentation.dart';
 
-class NowPlayingTvSeriesPage extends StatefulWidget {
-  static const routeName = '/now-playing-tv-series';
+class NowPlayingMoviePage extends StatefulWidget {
+  static const routeName = '/now-playing-movie';
 
-  const NowPlayingTvSeriesPage({super.key});
+  const NowPlayingMoviePage({Key? key}) : super(key: key);
 
   @override
-  State<NowPlayingTvSeriesPage> createState() => _NowPlayingTvSeriesPageState();
+  State<NowPlayingMoviePage> createState() => _NowPlayingMoviePageState();
 }
 
-class _NowPlayingTvSeriesPageState extends State<NowPlayingTvSeriesPage> {
+class _NowPlayingMoviePageState extends State<NowPlayingMoviePage> {
   @override
   void initState() {
     super.initState();
     Future.microtask(() =>
-        Provider.of<NowPlayingTvSeriesNotifier>(context, listen: false)
-            .fetchNowPlayingTvSeries());
+        Provider.of<NowPlayingMoviesNotifier>(context, listen: false)
+            .fetchNowPlayingMovies());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Now Playing TV Series'),
+        title: const Text('Now Playing Movies'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<NowPlayingTvSeriesNotifier>(
+        child: Consumer<NowPlayingMoviesNotifier>(
           builder: (context, data, child) {
             if (data.state == RequestState.Loading) {
               return const Center(
@@ -39,21 +39,21 @@ class _NowPlayingTvSeriesPageState extends State<NowPlayingTvSeriesPage> {
             } else if (data.state == RequestState.Loaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final tvSeries = data.tvSeries[index];
+                  final movie = data.movies[index];
                   return CardList(
-                    title: tvSeries.name ?? '-',
-                    overview: tvSeries.overview ?? '-',
-                    posterPath: '${tvSeries.posterPath}',
+                    title: movie.title ?? '',
+                    posterPath: movie.overview ?? '',
+                    overview: movie.posterPath ?? '',
                     onTap: () {
                       Navigator.pushNamed(
                         context,
-                        TvSeriesDetailPage.routeName,
-                        arguments: tvSeries.id,
+                        MovieDetailPage.routeName,
+                        arguments: movie.id,
                       );
                     },
                   );
                 },
-                itemCount: data.tvSeries.length,
+                itemCount: data.movies.length,
               );
             } else {
               return Center(

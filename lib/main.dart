@@ -31,6 +31,9 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<TopRatedMoviesNotifier>(),
         ),
         ChangeNotifierProvider(
+          create: (_) => di.locator<NowPlayingMoviesNotifier>(),
+        ),
+        ChangeNotifierProvider(
           create: (_) => di.locator<PopularMoviesNotifier>(),
         ),
         ChangeNotifierProvider(
@@ -70,44 +73,56 @@ class MyApp extends StatelessWidget {
         navigatorObservers: [routeObserver],
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
-            case PopularMoviesPage.ROUTE_NAME:
+            // movie
+            case NowPlayingMoviePage.routeName:
+              return CupertinoPageRoute(
+                builder: (_) => const NowPlayingMoviePage(),
+              );
+            case PopularMoviesPage.routeName:
               return CupertinoPageRoute(
                   builder: (_) => const PopularMoviesPage());
-            case TopRatedMoviesPage.ROUTE_NAME:
+            case TopRatedMoviesPage.routeName:
               return CupertinoPageRoute(
                   builder: (_) => const TopRatedMoviesPage());
-            case MovieDetailPage.ROUTE_NAME:
+            case SearchMoviePage.routeName:
+              return CupertinoPageRoute(
+                  builder: (_) => const SearchMoviePage());
+            case MovieDetailPage.routeName:
               final id = settings.arguments as int;
               return MaterialPageRoute(
                 builder: (_) => MovieDetailPage(id: id),
                 settings: settings,
               );
-            case SearchPage.ROUTE_NAME:
-              return CupertinoPageRoute(builder: (_) => const SearchPage());
-            case NowPlayingTvSeriesPage.ROUTE_NAME:
-              return MaterialPageRoute(
+
+            // tv series
+            case NowPlayingTvSeriesPage.routeName:
+              return CupertinoPageRoute(
                 builder: (_) => const NowPlayingTvSeriesPage(),
               );
-            case PopularTvSeriesPage.ROUTE_NAME:
-              return MaterialPageRoute(
+            case PopularTvSeriesPage.routeName:
+              return CupertinoPageRoute(
                   builder: (_) => const PopularTvSeriesPage());
-            case TopRatedTvSeriesPage.ROUTE_NAME:
-              return MaterialPageRoute(
+            case TopRatedTvSeriesPage.routeName:
+              return CupertinoPageRoute(
                   builder: (_) => const TopRatedTvSeriesPage());
-            case SearchTvSeriesPage.ROUTE_NAME:
-              return MaterialPageRoute(
+            case SearchTvSeriesPage.routeName:
+              return CupertinoPageRoute(
                   builder: (_) => const SearchTvSeriesPage());
-            case TvSeriesDetailPage.ROUTE_NAME:
+            case TvSeriesDetailPage.routeName:
               final id = settings.arguments as int;
               return MaterialPageRoute(
                 builder: (_) => TvSeriesDetailPage(id: id),
                 settings: settings,
               );
-            case WatchlistPage.ROUTE_NAME:
+
+            //watch list
+            case WatchlistPage.routeName:
               return MaterialPageRoute(
                 builder: (_) => const WatchlistPage(),
               );
-            case AboutPage.ROUTE_NAME:
+
+            //about
+            case AboutPage.routeName:
               return MaterialPageRoute(builder: (_) => const AboutPage());
             default:
               return MaterialPageRoute(builder: (_) {

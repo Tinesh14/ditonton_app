@@ -5,7 +5,7 @@ import '../../../common/common.dart';
 import '../../presentation.dart';
 
 class PopularTvSeriesPage extends StatefulWidget {
-  static const ROUTE_NAME = '/popular-tv-series';
+  static const routeName = '/popular-tv-series';
 
   const PopularTvSeriesPage({super.key});
 
@@ -47,7 +47,7 @@ class _PopularTvSeriesPageState extends State<PopularTvSeriesPage> {
                     onTap: () {
                       Navigator.pushNamed(
                         context,
-                        TvSeriesDetailPage.ROUTE_NAME,
+                        TvSeriesDetailPage.routeName,
                         arguments: tvSeries.id,
                       );
                     },

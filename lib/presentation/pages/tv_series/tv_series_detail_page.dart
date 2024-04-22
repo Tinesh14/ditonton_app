@@ -5,7 +5,7 @@ import '../../../common/common.dart';
 import '../../presentation.dart';
 
 class TvSeriesDetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/detail-tv-series';
+  static const routeName = '/detail-tv-series';
 
   final int id;
   const TvSeriesDetailPage({super.key, required this.id});

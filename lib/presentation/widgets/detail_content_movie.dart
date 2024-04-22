@@ -13,7 +13,8 @@ class DetailContentMovie extends StatelessWidget {
   final bool isAddedWatchlist;
 
   const DetailContentMovie(
-      this.movie, this.recommendations, this.isAddedWatchlist, {super.key});
+      this.movie, this.recommendations, this.isAddedWatchlist,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -69,10 +70,11 @@ class DetailContentMovie extends StatelessWidget {
                                       .removeFromWatchlist(movie);
                                 }
 
-                                final message =
-                                    Provider.of<MovieDetailNotifier>(context,
+                                final message = context.mounted
+                                    ? Provider.of<MovieDetailNotifier>(context,
                                             listen: false)
-                                        .watchlistMessage;
+                                        .watchlistMessage
+                                    : '';
 
                                 if (message ==
                                         MovieDetailNotifier
@@ -80,16 +82,20 @@ class DetailContentMovie extends StatelessWidget {
                                     message ==
                                         MovieDetailNotifier
                                             .watchlistRemoveSuccessMessage) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text(message)));
+                                  if (context.mounted) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text(message)));
+                                  }
                                 } else {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          content: Text(message),
-                                        );
-                                      });
+                                  if (context.mounted) {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            content: Text(message),
+                                          );
+                                        });
+                                  }
                                 }
                               },
                               child: Row(
@@ -159,7 +165,7 @@ class DetailContentMovie extends StatelessWidget {
                                             onTap: () {
                                               Navigator.pushReplacementNamed(
                                                 context,
-                                                MovieDetailPage.ROUTE_NAME,
+                                                MovieDetailPage.routeName,
                                                 arguments: movie.id,
                                               );
                                             },

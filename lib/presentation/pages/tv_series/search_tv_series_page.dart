@@ -5,7 +5,7 @@ import '../../../common/common.dart';
 import '../../presentation.dart';
 
 class SearchTvSeriesPage extends StatelessWidget {
-  static const ROUTE_NAME = '/search-tv-series';
+  static const routeName = '/search-tv-series';
 
   const SearchTvSeriesPage({super.key});
 
@@ -57,7 +57,7 @@ class SearchTvSeriesPage extends StatelessWidget {
                           onTap: () {
                             Navigator.pushNamed(
                               context,
-                              TvSeriesDetailPage.ROUTE_NAME,
+                              TvSeriesDetailPage.routeName,
                               arguments: tvSeries.id,
                             );
                           },

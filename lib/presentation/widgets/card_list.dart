@@ -18,7 +18,7 @@ class CardList extends StatelessWidget {
   });
   //  Navigator.pushNamed(
   //           context,
-  //           MovieDetailPage.ROUTE_NAME,
+  //           MovieDetailPage.routeName,
   //           arguments: movie.id,
   //         );
 

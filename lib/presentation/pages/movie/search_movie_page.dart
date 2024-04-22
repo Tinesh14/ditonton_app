@@ -6,16 +6,16 @@ import 'package:provider/provider.dart';
 import '../../../common/common.dart';
 import '../../presentation.dart';
 
-class SearchPage extends StatelessWidget {
-  static const ROUTE_NAME = '/search';
+class SearchMoviePage extends StatelessWidget {
+  static const routeName = '/search-movie';
 
-  const SearchPage({super.key});
+  const SearchMoviePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search'),
+        title: const Text('Search Movie'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -54,12 +54,12 @@ class SearchPage extends StatelessWidget {
                         final movie = data.searchResult[index];
                         return CardList(
                           title: movie.title ?? '',
-                          posterPath: movie.overview ?? '',
-                          overview: movie.posterPath ?? '',
+                          posterPath: movie.posterPath ?? '',
+                          overview: movie.overview ?? '',
                           onTap: () {
                             Navigator.pushNamed(
                               context,
-                              MovieDetailPage.ROUTE_NAME,
+                              MovieDetailPage.routeName,
                               arguments: movie.id,
                             );
                           },

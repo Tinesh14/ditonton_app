@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -7,23 +6,22 @@ import '../../../common/common.dart';
 import '../../../domain/domain.dart';
 import '../../presentation.dart';
 
-class TvSeriesListPage extends StatefulWidget {
-  static const routeName = '/tv-series';
-  const TvSeriesListPage({Key? key}) : super(key: key);
+class MovieListPage extends StatefulWidget {
+  const MovieListPage({Key? key}) : super(key: key);
 
   @override
-  State<TvSeriesListPage> createState() => _TvSeriesListPageState();
+  State<MovieListPage> createState() => _MovieListPageState();
 }
 
-class _TvSeriesListPageState extends State<TvSeriesListPage> {
+class _MovieListPageState extends State<MovieListPage> {
   @override
   void initState() {
     super.initState();
     Future.microtask(
-        () => Provider.of<TvSeriesListNotifier>(context, listen: false)
-          ..fetchNowPlayingTvSeries()
-          ..fetchPopularTvSeries()
-          ..fetchTopRatedTvSeries());
+        () => Provider.of<MovieListNotifier>(context, listen: false)
+          ..fetchNowPlayingMovies()
+          ..fetchPopularMovies()
+          ..fetchTopRatedMovies());
   }
 
   @override
@@ -36,57 +34,53 @@ class _TvSeriesListPageState extends State<TvSeriesListPage> {
           children: [
             _buildSubHeading(
               title: 'Now Playing',
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  NowPlayingTvSeriesPage.routeName,
-                );
-              },
+              onTap: () => Navigator.pushNamed(
+                context,
+                NowPlayingMoviePage.routeName,
+              ),
             ),
-            Consumer<TvSeriesListNotifier>(builder: (context, data, child) {
+            Consumer<MovieListNotifier>(builder: (context, data, child) {
               final state = data.nowPlayingState;
               if (state == RequestState.Loading) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
               } else if (state == RequestState.Loaded) {
-                return TvSeriesList(data.nowPlayingTvSeries);
+                return MovieList(data.nowPlayingMovies);
               } else {
                 return const Text('Failed');
               }
             }),
             _buildSubHeading(
               title: 'Popular',
-              onTap: () {
-                Navigator.pushNamed(context, PopularTvSeriesPage.routeName);
-              },
+              onTap: () =>
+                  Navigator.pushNamed(context, PopularMoviesPage.routeName),
             ),
-            Consumer<TvSeriesListNotifier>(builder: (context, data, child) {
-              final state = data.popularState;
+            Consumer<MovieListNotifier>(builder: (context, data, child) {
+              final state = data.popularMoviesState;
               if (state == RequestState.Loading) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
               } else if (state == RequestState.Loaded) {
-                return TvSeriesList(data.popularTvSeries);
+                return MovieList(data.popularMovies);
               } else {
                 return const Text('Failed');
               }
             }),
             _buildSubHeading(
               title: 'Top Rated',
-              onTap: () {
-                Navigator.pushNamed(context, TopRatedTvSeriesPage.routeName);
-              },
+              onTap: () =>
+                  Navigator.pushNamed(context, TopRatedMoviesPage.routeName),
             ),
-            Consumer<TvSeriesListNotifier>(builder: (context, data, child) {
-              final state = data.topRatedState;
+            Consumer<MovieListNotifier>(builder: (context, data, child) {
+              final state = data.topRatedMoviesState;
               if (state == RequestState.Loading) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
               } else if (state == RequestState.Loaded) {
-                return TvSeriesList(data.topRatedTvSeries);
+                return MovieList(data.topRatedMovies);
               } else {
                 return const Text('Failed');
               }
@@ -119,10 +113,10 @@ class _TvSeriesListPageState extends State<TvSeriesListPage> {
   }
 }
 
-class TvSeriesList extends StatelessWidget {
-  final List<TvSeries> tvSeries;
+class MovieList extends StatelessWidget {
+  final List<Movie> movies;
 
-  const TvSeriesList(this.tvSeries, {super.key});
+  const MovieList(this.movies, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -131,21 +125,21 @@ class TvSeriesList extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          final item = tvSeries[index];
+          final movie = movies[index];
           return Container(
             padding: const EdgeInsets.all(8),
             child: InkWell(
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  TvSeriesDetailPage.routeName,
-                  arguments: item.id,
+                  MovieDetailPage.routeName,
+                  arguments: movie.id,
                 );
               },
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(16)),
                 child: CachedNetworkImage(
-                  imageUrl: '$BASE_IMAGE_URL${item.posterPath}',
+                  imageUrl: '$BASE_IMAGE_URL${movie.posterPath}',
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),
@@ -155,7 +149,7 @@ class TvSeriesList extends StatelessWidget {
             ),
           );
         },
-        itemCount: tvSeries.length,
+        itemCount: movies.length,
       ),
     );
   }

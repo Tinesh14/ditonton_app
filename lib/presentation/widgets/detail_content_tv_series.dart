@@ -70,10 +70,12 @@ class DetailContentTvSeries extends StatelessWidget {
                                       .removeFromWatchlist(tvSeries);
                                 }
 
-                                final message =
-                                    Provider.of<TvSeriesDetailNotifier>(context,
+                                final message = context.mounted
+                                    ? Provider.of<TvSeriesDetailNotifier>(
+                                            context,
                                             listen: false)
-                                        .watchlistMessage;
+                                        .watchlistMessage
+                                    : '';
 
                                 if (message ==
                                         TvSeriesDetailNotifier
@@ -81,16 +83,20 @@ class DetailContentTvSeries extends StatelessWidget {
                                     message ==
                                         TvSeriesDetailNotifier
                                             .watchlistRemoveSuccessMessage) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text(message)));
+                                  if (context.mounted) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text(message)));
+                                  }
                                 } else {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          content: Text(message),
-                                        );
-                                      });
+                                  if (context.mounted) {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            content: Text(message),
+                                          );
+                                        });
+                                  }
                                 }
                               },
                               child: Row(
@@ -192,7 +198,7 @@ class DetailContentTvSeries extends StatelessWidget {
                                             onTap: () {
                                               Navigator.pushReplacementNamed(
                                                 context,
-                                                TvSeriesDetailPage.ROUTE_NAME,
+                                                TvSeriesDetailPage.routeName,
                                                 arguments: movie.id,
                                               );
                                             },

@@ -30,6 +30,7 @@ void init() {
       searchMovies: locator(),
     ),
   );
+  locator.registerFactory(() => NowPlayingMoviesNotifier(locator()));
   locator.registerFactory(
     () => PopularMoviesNotifier(
       locator(),

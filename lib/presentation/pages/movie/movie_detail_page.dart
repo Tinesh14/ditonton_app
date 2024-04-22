@@ -6,7 +6,7 @@ import '../../../common/common.dart';
 import '../../presentation.dart';
 
 class MovieDetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/detail';
+  static const routeName = '/detail';
 
   final int id;
   const MovieDetailPage({super.key, required this.id});
@@ -53,4 +53,3 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     );
   }
 }
-

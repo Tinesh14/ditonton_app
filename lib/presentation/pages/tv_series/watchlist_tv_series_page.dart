@@ -54,7 +54,7 @@ class _WatchlistTvSeriesPageState extends State<WatchlistTvSeriesPage>
                   onTap: () {
                     Navigator.pushNamed(
                       context,
-                      TvSeriesDetailPage.ROUTE_NAME,
+                      TvSeriesDetailPage.routeName,
                       arguments: tvSeries.id,
                     );
                   },

@@ -7,7 +7,7 @@ import '../../../common/state_enum.dart';
 import '../../presentation.dart';
 
 class PopularMoviesPage extends StatefulWidget {
-  static const ROUTE_NAME = '/popular-movie';
+  static const routeName = '/popular-movie';
 
   const PopularMoviesPage({super.key});
 
@@ -49,7 +49,7 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
                     onTap: () {
                       Navigator.pushNamed(
                         context,
-                        MovieDetailPage.ROUTE_NAME,
+                        MovieDetailPage.routeName,
                         arguments: movie.id,
                       );
                     },

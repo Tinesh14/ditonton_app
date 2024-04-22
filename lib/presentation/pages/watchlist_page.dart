@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../presentation.dart';
 
 class WatchlistPage extends StatefulWidget {
-  static const ROUTE_NAME = '/watchlist';
+  static const routeName = '/watchlist';
   const WatchlistPage({super.key});
 
   @override
