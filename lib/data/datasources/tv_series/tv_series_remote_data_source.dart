@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
+import '../../../common/common.dart';
 import '../../models/models.dart';
 
 abstract class TvSeriesRemoteDataSource {
@@ -17,38 +20,73 @@ class TvSeriesRemoteDataSourceImpl implements TvSeriesRemoteDataSource {
   TvSeriesRemoteDataSourceImpl({required this.client});
 
   @override
-  Future<List<dynamic>> getNowPlayingTvSeries() {
-    // TODO: implement getNowPlayingTvSeries
-    throw UnimplementedError();
+  Future<List<TvSeriesModel>> getNowPlayingTvSeries() async {
+    final response =
+        await client.get(Uri.parse('$BASE_URL/tv/on_the_air?$API_KEY'));
+
+    if (response.statusCode == 200) {
+      return TvSeriesResponse.fromJson(json.decode(response.body)).tvSeriesList;
+    } else {
+      throw ServerException();
+    }
   }
 
   @override
-  Future<List<dynamic>> getPopularTvSeries() {
-    // TODO: implement getPopularTvSeries
-    throw UnimplementedError();
+  Future<List<TvSeriesModel>> getPopularTvSeries() async {
+    final response =
+        await client.get(Uri.parse('$BASE_URL/tv/popular?$API_KEY'));
+
+    if (response.statusCode == 200) {
+      return TvSeriesResponse.fromJson(json.decode(response.body)).tvSeriesList;
+    } else {
+      throw ServerException();
+    }
   }
 
   @override
-  Future<List<dynamic>> getTopRatedTvSeries() {
-    // TODO: implement getTopRatedTvSeries
-    throw UnimplementedError();
+  Future<List<TvSeriesModel>> getTopRatedTvSeries() async {
+    final response =
+        await client.get(Uri.parse('$BASE_URL/tv/top_rated?$API_KEY'));
+
+    if (response.statusCode == 200) {
+      return TvSeriesResponse.fromJson(json.decode(response.body)).tvSeriesList;
+    } else {
+      throw ServerException();
+    }
   }
 
   @override
-  Future<dynamic> getTvSeriesDetail(int id) {
-    // TODO: implement getTvSeriesDetail
-    throw UnimplementedError();
+  Future<List<TvSeriesModel>> searchTvSeries(String query) async {
+    final response = await client
+        .get(Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$query'));
+
+    if (response.statusCode == 200) {
+      return TvSeriesResponse.fromJson(json.decode(response.body)).tvSeriesList;
+    } else {
+      throw ServerException();
+    }
   }
 
   @override
-  Future<List<dynamic>> getTvSeriesRecommendations(int id) {
-    // TODO: implement getTvSeriesRecommendations
-    throw UnimplementedError();
+  Future<TvSeriesDetailResponse> getTvSeriesDetail(int id) async {
+    final response = await client.get(Uri.parse('$BASE_URL/tv/$id?$API_KEY'));
+
+    if (response.statusCode == 200) {
+      return TvSeriesDetailResponse.fromJson(json.decode(response.body));
+    } else {
+      throw ServerException();
+    }
   }
 
   @override
-  Future<List<dynamic>> searchTvSeries(String query) {
-    // TODO: implement searchTvSeries
-    throw UnimplementedError();
+  Future<List<TvSeriesModel>> getTvSeriesRecommendations(int id) async {
+    final response = await client
+        .get(Uri.parse('$BASE_URL/tv/$id/recommendations?$API_KEY'));
+
+    if (response.statusCode == 200) {
+      return TvSeriesResponse.fromJson(json.decode(response.body)).tvSeriesList;
+    } else {
+      throw ServerException();
+    }
   }
 }
