@@ -109,18 +109,26 @@ class DatabaseHelper {
   }
 
   Future<List<Map<String, dynamic>>> getWatchlistMovies() async {
-    final db = await database;
-    final List<Map<String, dynamic>> results =
-        await db!.query(_tblWatchlistMovies);
+    try {
+      final db = await database;
+      final List<Map<String, dynamic>> results =
+          await db!.query(_tblWatchlistMovies);
 
-    return results;
+      return results;
+    } catch (e) {
+      return [];
+    }
   }
 
   Future<List<Map<String, dynamic>>> getWatchlistTvSeries() async {
-    final db = await database;
-    final List<Map<String, dynamic>> results =
-        await db!.query(_tblWatchlistTvSeries);
+    try {
+      final db = await database;
+      final List<Map<String, dynamic>> results =
+          await db!.query(_tblWatchlistTvSeries);
 
-    return results;
+      return results;
+    } catch (e) {
+      return [];
+    }
   }
 }
