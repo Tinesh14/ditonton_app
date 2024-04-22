@@ -7,8 +7,8 @@ import 'dart:ui' as i7;
 
 import 'package:ditonton_app/common/state_enum.dart' as i4;
 import 'package:ditonton_app/domain/entities/movie.dart' as i5;
-import 'package:ditonton_app/domain/usecases/get_top_rated_movies.dart' as i2;
-import 'package:ditonton_app/presentation/provider/top_rated_movies_notifier.dart'
+import 'package:ditonton_app/domain/usecases/movie.dart/get_top_rated_movies.dart' as i2;
+import 'package:ditonton_app/presentation/provider/movies/top_rated_movies_notifier.dart'
     as i3;
 import 'package:mockito/mockito.dart' as i1;
 

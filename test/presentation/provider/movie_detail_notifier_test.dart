@@ -1,13 +1,12 @@
 import 'package:dartz/dartz.dart';
+import 'package:ditonton_app/common/common.dart';
 import 'package:ditonton_app/domain/entities/movie.dart';
-import 'package:ditonton_app/domain/usecases/get_movie_detail.dart';
-import 'package:ditonton_app/domain/usecases/get_movie_recommendations.dart';
-import 'package:ditonton_app/common/failure.dart';
-import 'package:ditonton_app/domain/usecases/get_watchlist_status.dart';
-import 'package:ditonton_app/domain/usecases/remove_watchlist.dart';
-import 'package:ditonton_app/domain/usecases/save_watchlist.dart';
-import 'package:ditonton_app/presentation/provider/movie_detail_notifier.dart';
-import 'package:ditonton_app/common/state_enum.dart';
+import 'package:ditonton_app/domain/usecases/movie.dart/get_movie_detail.dart';
+import 'package:ditonton_app/domain/usecases/movie.dart/get_movie_recommendations.dart';
+import 'package:ditonton_app/domain/usecases/movie.dart/get_watchlist_status.dart';
+import 'package:ditonton_app/domain/usecases/movie.dart/remove_watchlist.dart';
+import 'package:ditonton_app/domain/usecases/movie.dart/save_watchlist.dart';
+import 'package:ditonton_app/presentation/provider/movies/movie_detail_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -70,7 +69,7 @@ void main() {
 
   void arrangeUsecase() {
     when(mockGetMovieDetail.execute(tId))
-        .thenAnswer((_) async => Right(testMovieDetail));
+        .thenAnswer((_) async => const Right(testMovieDetail));
     when(mockGetMovieRecommendations.execute(tId))
         .thenAnswer((_) async => Right(tMovies));
   }
@@ -144,9 +143,9 @@ void main() {
     test('should update error message when request in successful', () async {
       // arrange
       when(mockGetMovieDetail.execute(tId))
-          .thenAnswer((_) async => Right(testMovieDetail));
+          .thenAnswer((_) async => const Right(testMovieDetail));
       when(mockGetMovieRecommendations.execute(tId))
-          .thenAnswer((_) async => Left(ServerFailure('Failed')));
+          .thenAnswer((_) async => const Left(ServerFailure('Failed')));
       // act
       await provider.fetchMovieDetail(tId);
       // assert
@@ -207,7 +206,7 @@ void main() {
     test('should update watchlist message when add watchlist failed', () async {
       // arrange
       when(mockSaveWatchlist.execute(testMovieDetail))
-          .thenAnswer((_) async => Left(DatabaseFailure('Failed')));
+          .thenAnswer((_) async => const Left(DatabaseFailure('Failed')));
       when(mockGetWatchlistStatus.execute(testMovieDetail.id))
           .thenAnswer((_) async => false);
       // act
@@ -222,7 +221,7 @@ void main() {
     test('should return error when data is unsuccessful', () async {
       // arrange
       when(mockGetMovieDetail.execute(tId))
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       when(mockGetMovieRecommendations.execute(tId))
           .thenAnswer((_) async => Right(tMovies));
       // act

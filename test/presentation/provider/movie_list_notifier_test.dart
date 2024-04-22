@@ -1,11 +1,10 @@
 import 'package:dartz/dartz.dart';
+import 'package:ditonton_app/common/common.dart';
 import 'package:ditonton_app/domain/entities/movie.dart';
-import 'package:ditonton_app/domain/usecases/get_now_playing_movies.dart';
-import 'package:ditonton_app/common/failure.dart';
-import 'package:ditonton_app/domain/usecases/get_popular_movies.dart';
-import 'package:ditonton_app/domain/usecases/get_top_rated_movies.dart';
-import 'package:ditonton_app/presentation/provider/movie_list_notifier.dart';
-import 'package:ditonton_app/common/state_enum.dart';
+import 'package:ditonton_app/domain/usecases/movie.dart/get_now_playing_movies.dart';
+import 'package:ditonton_app/domain/usecases/movie.dart/get_popular_movies.dart';
+import 'package:ditonton_app/domain/usecases/movie.dart/get_top_rated_movies.dart';
+import 'package:ditonton_app/presentation/provider/movies/movie_list_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -91,7 +90,7 @@ void main() {
     test('should return error when data is unsuccessful', () async {
       // arrange
       when(mockGetNowPlayingMovies.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
       await provider.fetchNowPlayingMovies();
       // assert
@@ -129,7 +128,7 @@ void main() {
     test('should return error when data is unsuccessful', () async {
       // arrange
       when(mockGetPopularMovies.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
       await provider.fetchPopularMovies();
       // assert
@@ -166,7 +165,7 @@ void main() {
     test('should return error when data is unsuccessful', () async {
       // arrange
       when(mockGetTopRatedMovies.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
       await provider.fetchTopRatedMovies();
       // assert

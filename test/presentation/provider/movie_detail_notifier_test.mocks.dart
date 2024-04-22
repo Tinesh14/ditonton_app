@@ -9,12 +9,12 @@ import 'package:ditonton_app/common/failure.dart' as i6;
 import 'package:ditonton_app/domain/entities/movie.dart' as i9;
 import 'package:ditonton_app/domain/entities/movie_detail.dart' as i7;
 import 'package:ditonton_app/domain/repositories/movie_repository.dart' as i2;
-import 'package:ditonton_app/domain/usecases/get_movie_detail.dart' as i4;
-import 'package:ditonton_app/domain/usecases/get_movie_recommendations.dart'
+import 'package:ditonton_app/domain/usecases/movie.dart/get_movie_detail.dart' as i4;
+import 'package:ditonton_app/domain/usecases/movie.dart/get_movie_recommendations.dart'
     as i8;
-import 'package:ditonton_app/domain/usecases/get_watchlist_status.dart' as i10;
-import 'package:ditonton_app/domain/usecases/remove_watchlist.dart' as i12;
-import 'package:ditonton_app/domain/usecases/save_watchlist.dart' as i11;
+import 'package:ditonton_app/domain/usecases/movie.dart/get_watchlist_status.dart' as i10;
+import 'package:ditonton_app/domain/usecases/movie.dart/remove_watchlist.dart' as i12;
+import 'package:ditonton_app/domain/usecases/movie.dart/save_watchlist.dart' as i11;
 import 'package:mockito/mockito.dart' as i1;
 
 // ignore_for_file: avoid_redundant_argument_values

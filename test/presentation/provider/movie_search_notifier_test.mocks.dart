@@ -8,7 +8,7 @@ import 'package:dartz/dartz.dart' as i3;
 import 'package:ditonton_app/common/failure.dart' as i6;
 import 'package:ditonton_app/domain/entities/movie.dart' as i7;
 import 'package:ditonton_app/domain/repositories/movie_repository.dart' as i2;
-import 'package:ditonton_app/domain/usecases/search_movies.dart' as i4;
+import 'package:ditonton_app/domain/usecases/movie.dart/search_movies.dart' as i4;
 import 'package:mockito/mockito.dart' as i1;
 
 // ignore_for_file: avoid_redundant_argument_values

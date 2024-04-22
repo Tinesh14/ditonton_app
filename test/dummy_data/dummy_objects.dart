@@ -1,7 +1,6 @@
-import 'package:ditonton_app/data/models/movie_table.dart';
-import 'package:ditonton_app/domain/entities/genre.dart';
-import 'package:ditonton_app/domain/entities/movie.dart';
-import 'package:ditonton_app/domain/entities/movie_detail.dart';
+import 'package:ditonton_app/data/models/models.dart';
+import 'package:ditonton_app/domain/domain.dart';
+
 
 final testMovie = Movie(
   adult: false,
@@ -22,7 +21,7 @@ final testMovie = Movie(
 
 final testMovieList = [testMovie];
 
-final testMovieDetail = MovieDetail(
+const testMovieDetail = MovieDetail(
   adult: false,
   backdropPath: 'backdropPath',
   genres: [Genre(id: 1, name: 'Action')],

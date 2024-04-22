@@ -8,13 +8,13 @@ import 'dart:ui' as i12;
 import 'package:ditonton_app/common/state_enum.dart' as i9;
 import 'package:ditonton_app/domain/entities/movie.dart' as i10;
 import 'package:ditonton_app/domain/entities/movie_detail.dart' as i7;
-import 'package:ditonton_app/domain/usecases/get_movie_detail.dart' as i2;
-import 'package:ditonton_app/domain/usecases/get_movie_recommendations.dart'
+import 'package:ditonton_app/domain/usecases/movie.dart/get_movie_detail.dart' as i2;
+import 'package:ditonton_app/domain/usecases/movie.dart/get_movie_recommendations.dart'
     as i3;
-import 'package:ditonton_app/domain/usecases/get_watchlist_status.dart' as i4;
-import 'package:ditonton_app/domain/usecases/remove_watchlist.dart' as i6;
-import 'package:ditonton_app/domain/usecases/save_watchlist.dart' as i5;
-import 'package:ditonton_app/presentation/provider/movie_detail_notifier.dart'
+import 'package:ditonton_app/domain/usecases/movie.dart/get_watchlist_status.dart' as i4;
+import 'package:ditonton_app/domain/usecases/movie.dart/remove_watchlist.dart' as i6;
+import 'package:ditonton_app/domain/usecases/movie.dart/save_watchlist.dart' as i5;
+import 'package:ditonton_app/presentation/provider/movies/movie_detail_notifier.dart'
     as i8;
 import 'package:mockito/mockito.dart' as i1;
 

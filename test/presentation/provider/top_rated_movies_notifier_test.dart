@@ -1,9 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:ditonton_app/common/failure.dart';
-import 'package:ditonton_app/common/state_enum.dart';
+import 'package:ditonton_app/common/common.dart';
 import 'package:ditonton_app/domain/entities/movie.dart';
-import 'package:ditonton_app/domain/usecases/get_top_rated_movies.dart';
-import 'package:ditonton_app/presentation/provider/top_rated_movies_notifier.dart';
+import 'package:ditonton_app/domain/usecases/movie.dart/get_top_rated_movies.dart';
+import 'package:ditonton_app/presentation/provider/movies/top_rated_movies_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -69,7 +68,7 @@ void main() {
   test('should return error when data is unsuccessful', () async {
     // arrange
     when(mockGetTopRatedMovies.execute())
-        .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+        .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
     // act
     await notifier.fetchTopRatedMovies();
     // assert

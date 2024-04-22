@@ -1,9 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:ditonton_app/common/failure.dart';
-import 'package:ditonton_app/common/state_enum.dart';
+import 'package:ditonton_app/common/common.dart';
 import 'package:ditonton_app/domain/entities/movie.dart';
-import 'package:ditonton_app/domain/usecases/search_movies.dart';
-import 'package:ditonton_app/presentation/provider/movie_search_notifier.dart';
+import 'package:ditonton_app/domain/usecases/movie.dart/search_movies.dart';
+import 'package:ditonton_app/presentation/provider/movies/movie_search_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -71,7 +70,7 @@ void main() {
     test('should return error when data is unsuccessful', () async {
       // arrange
       when(mockSearchMovies.execute(tQuery))
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       // act
       await provider.fetchMovieSearch(tQuery);
       // assert

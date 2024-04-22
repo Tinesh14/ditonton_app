@@ -7,7 +7,7 @@ import 'dart:async' as i4;
 import 'package:dartz/dartz.dart' as i2;
 import 'package:ditonton_app/common/failure.dart' as i5;
 import 'package:ditonton_app/domain/entities/movie.dart' as i6;
-import 'package:ditonton_app/domain/usecases/get_watchlist_movies.dart' as i3;
+import 'package:ditonton_app/domain/usecases/movie.dart/get_watchlist_movies.dart' as i3;
 import 'package:mockito/mockito.dart' as i1;
 
 // ignore_for_file: avoid_redundant_argument_values

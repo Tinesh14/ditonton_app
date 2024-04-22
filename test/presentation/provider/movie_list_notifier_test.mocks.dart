@@ -8,10 +8,10 @@ import 'package:dartz/dartz.dart' as i3;
 import 'package:ditonton_app/common/failure.dart' as i6;
 import 'package:ditonton_app/domain/entities/movie.dart' as i7;
 import 'package:ditonton_app/domain/repositories/movie_repository.dart' as i2;
-import 'package:ditonton_app/domain/usecases/get_now_playing_movies.dart'
+import 'package:ditonton_app/domain/usecases/movie.dart/get_now_playing_movies.dart'
     as i4;
-import 'package:ditonton_app/domain/usecases/get_popular_movies.dart' as i8;
-import 'package:ditonton_app/domain/usecases/get_top_rated_movies.dart' as i9;
+import 'package:ditonton_app/domain/usecases/movie.dart/get_popular_movies.dart' as i8;
+import 'package:ditonton_app/domain/usecases/movie.dart/get_top_rated_movies.dart' as i9;
 import 'package:mockito/mockito.dart' as i1;
 
 // ignore_for_file: avoid_redundant_argument_values
