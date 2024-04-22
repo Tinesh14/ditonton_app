@@ -51,8 +51,8 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                 final movie = data.watchlistMovies[index];
                 return CardList(
                   title: movie.title ?? '',
-                  posterPath: movie.overview ?? '',
-                  overview: movie.posterPath ?? '',
+                  posterPath: movie.posterPath ?? '',
+                  overview: movie.overview ?? '',
                   onTap: () {
                     Navigator.pushNamed(
                       context,
