@@ -44,8 +44,8 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
                   final movie = data.movies[index];
                   return CardList(
                     title: movie.title ?? '',
-                    posterPath: movie.overview ?? '',
-                    overview: movie.posterPath ?? '',
+                    posterPath: movie.posterPath ?? '',
+                    overview: movie.overview ?? '',
                     onTap: () {
                       Navigator.pushNamed(
                         context,

@@ -42,8 +42,8 @@ class _NowPlayingMoviePageState extends State<NowPlayingMoviePage> {
                   final movie = data.movies[index];
                   return CardList(
                     title: movie.title ?? '',
-                    posterPath: movie.overview ?? '',
-                    overview: movie.posterPath ?? '',
+                    posterPath: movie.posterPath ?? '',
+                    overview: movie.overview ?? '',
                     onTap: () {
                       Navigator.pushNamed(
                         context,

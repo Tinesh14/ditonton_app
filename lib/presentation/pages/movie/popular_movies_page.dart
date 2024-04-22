@@ -44,8 +44,8 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
                   final movie = data.movies[index];
                   return CardList(
                     title: movie.title ?? '',
-                    posterPath: movie.overview ?? '',
-                    overview: movie.posterPath ?? '',
+                    posterPath: movie.posterPath ?? '',
+                    overview: movie.overview ?? '',
                     onTap: () {
                       Navigator.pushNamed(
                         context,
