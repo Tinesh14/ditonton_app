@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton_app/common/common.dart';
-import 'package:ditonton_app/domain/usecases/movie.dart/get_watchlist_movies.dart';
+import 'package:ditonton_app/domain/usecases/movie/get_watchlist_movies.dart';
 import 'package:ditonton_app/presentation/provider/movies/watchlist_movie_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../dummy_data/dummy_objects.dart';
+import '../../../dummy_data/dummy_objects.dart';
 import 'watchlist_movie_notifier_test.mocks.dart';
 
 @GenerateMocks([GetWatchlistMovies])

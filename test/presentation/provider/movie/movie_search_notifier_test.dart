@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton_app/common/common.dart';
 import 'package:ditonton_app/domain/entities/movie.dart';
-import 'package:ditonton_app/domain/usecases/movie.dart/search_movies.dart';
+import 'package:ditonton_app/domain/usecases/movie/search_movies.dart';
 import 'package:ditonton_app/presentation/provider/movies/movie_search_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';

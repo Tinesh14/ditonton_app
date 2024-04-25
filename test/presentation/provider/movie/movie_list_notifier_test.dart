@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton_app/common/common.dart';
 import 'package:ditonton_app/domain/entities/movie.dart';
-import 'package:ditonton_app/domain/usecases/movie.dart/get_now_playing_movies.dart';
-import 'package:ditonton_app/domain/usecases/movie.dart/get_popular_movies.dart';
-import 'package:ditonton_app/domain/usecases/movie.dart/get_top_rated_movies.dart';
+import 'package:ditonton_app/domain/usecases/movie/get_now_playing_movies.dart';
+import 'package:ditonton_app/domain/usecases/movie/get_popular_movies.dart';
+import 'package:ditonton_app/domain/usecases/movie/get_top_rated_movies.dart';
 import 'package:ditonton_app/presentation/provider/movies/movie_list_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';

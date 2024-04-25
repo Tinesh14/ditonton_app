@@ -8,7 +8,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 
-import '../../dummy_data/dummy_objects.dart';
+import '../../../dummy_data/dummy_objects.dart';
 import 'movie_detail_page_test.mocks.dart';
 
 @GenerateMocks([MovieDetailNotifier])
@@ -29,20 +29,21 @@ void main() {
   }
 
   testWidgets(
-      'Watchlist button should display add icon when movie not added to watchlist',
-      (WidgetTester tester) async {
-    when(mockNotifier.movieState).thenReturn(RequestState.Loaded);
-    when(mockNotifier.movie).thenReturn(testMovieDetail);
-    when(mockNotifier.recommendationState).thenReturn(RequestState.Loaded);
-    when(mockNotifier.movieRecommendations).thenReturn(<Movie>[]);
-    when(mockNotifier.isAddedToWatchlist).thenReturn(false);
+    'Watchlist button should display add icon when movie not added to watchlist',
+    (WidgetTester tester) async {
+      when(mockNotifier.movieState).thenReturn(RequestState.Loaded);
+      when(mockNotifier.movie).thenReturn(testMovieDetail);
+      when(mockNotifier.recommendationState).thenReturn(RequestState.Loaded);
+      when(mockNotifier.movieRecommendations).thenReturn(<Movie>[]);
+      when(mockNotifier.isAddedToWatchlist).thenReturn(false);
 
-    final watchlistButtonIcon = find.byIcon(Icons.add);
+      final watchlistButtonIcon = find.byIcon(Icons.add);
 
-    await tester.pumpWidget(makeTestableWidget(const MovieDetailPage(id: 1)));
+      await tester.pumpWidget(makeTestableWidget(const MovieDetailPage(id: 1)));
 
-    expect(watchlistButtonIcon, findsOneWidget);
-  });
+      expect(watchlistButtonIcon, findsOneWidget);
+    },
+  );
 
   testWidgets(
       'Watchlist button should dispay check icon when movie is added to wathclist',
