@@ -4,27 +4,25 @@ import 'package:ditonton_app/domain/domain.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../helpers/test_helper.mocks.dart';
+import '../../../helpers/test_helper.mocks.dart';
 
 void main() {
-  late GetMovieRecommendations usecase;
+  late GetNowPlayingMovies usecase;
   late MockMovieRepository mockMovieRepository;
 
   setUp(() {
     mockMovieRepository = MockMovieRepository();
-    usecase = GetMovieRecommendations(mockMovieRepository);
+    usecase = GetNowPlayingMovies(mockMovieRepository);
   });
 
-  const tId = 1;
   final tMovies = <Movie>[];
 
-  test('should get list of movie recommendations from the repository',
-      () async {
+  test('should get list of movies from the repository', () async {
     // arrange
-    when(mockMovieRepository.getMovieRecommendations(tId))
+    when(mockMovieRepository.getNowPlayingMovies())
         .thenAnswer((_) async => Right(tMovies));
     // act
-    final result = await usecase.execute(tId);
+    final result = await usecase.execute();
     // assert
     expect(result, Right(tMovies));
   });

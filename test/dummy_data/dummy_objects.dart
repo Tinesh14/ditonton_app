@@ -1,7 +1,6 @@
 import 'package:ditonton_app/data/models/models.dart';
 import 'package:ditonton_app/domain/domain.dart';
 
-
 final testMovie = Movie(
   adult: false,
   backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
@@ -50,9 +49,23 @@ const testMovieTable = MovieTable(
   overview: 'overview',
 );
 
+const testTvSeriesTable = TvSeriesTable(
+  id: 1,
+  name: 'name',
+  posterPath: 'posterPath',
+  overview: 'overview',
+);
+
 final testMovieMap = {
   'id': 1,
   'overview': 'overview',
   'posterPath': 'posterPath',
   'title': 'title',
+};
+
+final testTvSeriesMap = {
+  'id': 1,
+  'name': 'name',
+  'posterPath': 'posterPath',
+  'overview': 'overview',
 };
