@@ -27,7 +27,7 @@ void main() {
     test('should return a valid model from JSON', () async {
       // arrange
       final Map<String, dynamic> jsonMap =
-          json.decode(readJson('dummy_data/movie/movie/now_playing.json'));
+          json.decode(readJson('dummy_data/movie/now_playing.json'));
       // act
       final result = MovieResponse.fromJson(jsonMap);
       // assert
