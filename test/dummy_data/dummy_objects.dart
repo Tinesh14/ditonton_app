@@ -35,11 +35,51 @@ const testMovieDetail = MovieDetail(
   voteCount: 1,
 );
 
+const testTvSeriesDetail = TvSeriesDetail(
+  backdropPath: 'backdropPath',
+  firstAirDate: 'firstAirDate',
+  genres: [
+    Genre(
+      id: 10765,
+      name: 'Sci-Fi & Fantasy',
+    ),
+  ],
+  id: 1,
+  lastAirDate: 'lastAirDate',
+  name: 'name',
+  numberOfEpisodes: 1,
+  numberOfSeasons: 1,
+  overview: 'overview',
+  posterPath: 'posterPath',
+  seasons: [
+    Season(
+      airDate: 'airDate',
+      episodeCount: 1,
+      id: 1,
+      name: 'name',
+      overview: 'overview',
+      posterPath: 'posterPath',
+      seasonNumber: 3,
+    ),
+  ],
+  status: 'status',
+  tagline: 'tagline',
+  type: 'type',
+  voteAverage: 2,
+  voteCount: 6,
+);
+
 final testWatchlistMovie = Movie.watchlist(
   id: 1,
   title: 'title',
   posterPath: 'posterPath',
   overview: 'overview',
+);
+const testWatchlistTvSeries = TvSeries.watchlist(
+  id: 1,
+  posterPath: 'posterPath',
+  overview: 'overview',
+  name: 'name',
 );
 
 const testMovieTable = MovieTable(
