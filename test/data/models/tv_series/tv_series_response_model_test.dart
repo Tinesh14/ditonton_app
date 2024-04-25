@@ -8,18 +8,18 @@ import '../../../json_reader.dart';
 void main() {
   const tTvSeriesModel = TvSeriesModel(
     backdropPath: "/path.jpg",
-    genreIds: [1, 2, 3, 4],
+    genreIds: [1, 2, 3],
     id: 1,
     overview: "Overview",
-    popularity: 1.0,
+    popularity: 2.3,
     posterPath: "/path.jpg",
-    voteAverage: 1.0,
-    voteCount: 1,
-    firstAirDate: '',
-    originCountry: [],
-    originalLanguage: '',
-    name: '',
-    originalName: '',
+    voteAverage: 8.0,
+    voteCount: 230,
+    firstAirDate: '2022-10-10',
+    originCountry: ["en", "id"],
+    originalLanguage: 'Original Language',
+    name: 'Name',
+    originalName: 'Original Name',
   );
   const tTvSeriesResponseModel =
       TvSeriesResponse(tvSeriesList: <TvSeriesModel>[tTvSeriesModel]);
@@ -45,19 +45,19 @@ void main() {
       final expectedJsonMap = {
         "results": [
           {
-            "adult": false,
-            "backdrop_path": "/path.jpg",
-            "genre_ids": [1, 2, 3, 4],
-            "id": 1,
-            "original_title": "Original Title",
-            "overview": "Overview",
-            "popularity": 1.0,
             "poster_path": "/path.jpg",
-            "release_date": "2020-05-05",
-            "title": "Title",
-            "video": false,
-            "vote_average": 1.0,
-            "vote_count": 1
+            "popularity": 2.3,
+            "id": 1,
+            "backdrop_path": "/path.jpg",
+            "vote_average": 8.0,
+            "overview": "Overview",
+            "first_air_date": "2022-10-10",
+            "origin_country": ["en", "id"],
+            "genre_ids": [1, 2, 3],
+            "original_language": "Original Language",
+            "vote_count": 230,
+            "name": "Name",
+            "original_name": "Original Name"
           }
         ],
       };
