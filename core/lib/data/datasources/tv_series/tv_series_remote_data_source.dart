@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
+import 'package:http/io_client.dart';
 
 import '../../../common/common.dart';
 import '../../models/models.dart';
@@ -15,7 +15,7 @@ abstract class TvSeriesRemoteDataSource {
 }
 
 class TvSeriesRemoteDataSourceImpl implements TvSeriesRemoteDataSource {
-  final http.Client client;
+  final IOClient client;
 
   TvSeriesRemoteDataSourceImpl({required this.client});
 

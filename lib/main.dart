@@ -8,6 +8,7 @@ import 'package:ditonton_app/injection.dart' as di;
 import 'package:tv_series/presentation/presentation.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   di.init();
   runApp(const MyApp());
 }

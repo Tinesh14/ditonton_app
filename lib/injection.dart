@@ -1,7 +1,8 @@
 import 'package:core/data/data.dart';
 import 'package:core/domain/domain.dart';
-import 'package:http/http.dart' as http;
+import 'package:core/utils/ssl_pinning.dart';
 import 'package:get_it/get_it.dart';
+import 'package:http/io_client.dart';
 import 'package:movies/domain/domain.dart';
 import 'package:movies/presentation/presentation.dart';
 import 'package:tv_series/domain/domain.dart';
@@ -9,7 +10,7 @@ import 'package:tv_series/presentation/presentation.dart';
 
 final locator = GetIt.instance;
 
-void init() {
+void init() async {
   // provider movies
   locator.registerFactory(
     () => MovieListNotifier(
@@ -126,5 +127,6 @@ void init() {
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
 
   // external
-  locator.registerLazySingleton(() => http.Client());
+  IOClient ioClient = await SslPinning.ioClient;
+  locator.registerLazySingleton(() => ioClient);
 }
