@@ -1,9 +1,11 @@
+import 'package:core/data/data.dart';
+import 'package:core/domain/domain.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
-
-import 'data/data.dart';
-import 'domain/domain.dart';
-import 'presentation/presentation.dart';
+import 'package:movies/domain/domain.dart';
+import 'package:movies/presentation/presentation.dart';
+import 'package:tv_series/domain/domain.dart';
+import 'package:tv_series/presentation/presentation.dart';
 
 final locator = GetIt.instance;
 

@@ -1,10 +1,11 @@
+import 'package:core/common/common.dart';
+import 'package:core/presentation/presentation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movies/presentation/presentation.dart';
 import 'package:provider/provider.dart';
 import 'package:ditonton_app/injection.dart' as di;
-
-import 'common/common.dart';
-import 'presentation/presentation.dart';
+import 'package:tv_series/presentation/presentation.dart';
 
 void main() {
   di.init();
