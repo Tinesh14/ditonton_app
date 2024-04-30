@@ -1,4 +1,3 @@
-
 export 'pages/movie_detail_page.dart';
 export 'pages/movie_list_page.dart';
 export 'pages/now_playing_movie_page.dart';
@@ -15,5 +14,4 @@ export 'provider/popular_movies_notifier.dart';
 export 'provider/top_rated_movies_notifier.dart';
 export 'provider/watchlist_movie_notifier.dart';
 
-export 'widgets/card_list.dart';
 export 'widgets/detail_content_movie.dart';

@@ -15,11 +15,6 @@ class CardList extends StatelessWidget {
     required this.posterPath,
     required this.onTap,
   });
-  //  Navigator.pushNamed(
-  //           context,
-  //           MovieDetailPage.routeName,
-  //           arguments: movie.id,
-  //         );
 
   @override
   Widget build(BuildContext context) {
