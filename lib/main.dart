@@ -1,5 +1,6 @@
 import 'package:core/common/common.dart';
 import 'package:core/presentation/presentation.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/presentation/presentation.dart';
@@ -7,8 +8,13 @@ import 'package:provider/provider.dart';
 import 'package:ditonton_app/injection.dart' as di;
 import 'package:tv_series/presentation/presentation.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   di.init();
   runApp(const MyApp());
 }
