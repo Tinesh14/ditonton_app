@@ -1,6 +1,6 @@
+import 'package:core/domain/domain.dart';
 import 'package:dartz/dartz.dart';
 import 'package:tv_series/domain/domain.dart';
-import '../../../../core/lib/domain/domain.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 

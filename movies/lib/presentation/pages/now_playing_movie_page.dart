@@ -7,7 +7,7 @@ import '../presentation.dart';
 class NowPlayingMoviePage extends StatefulWidget {
   static const routeName = '/now-playing-movie';
 
-  const NowPlayingMoviePage({Key? key}) : super(key: key);
+  const NowPlayingMoviePage({super.key});
 
   @override
   State<NowPlayingMoviePage> createState() => _NowPlayingMoviePageState();

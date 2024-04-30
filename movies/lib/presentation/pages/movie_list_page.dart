@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../presentation.dart';
 
 class MovieListPage extends StatefulWidget {
-  const MovieListPage({Key? key}) : super(key: key);
+  const MovieListPage({super.key});
 
   @override
   State<MovieListPage> createState() => _MovieListPageState();

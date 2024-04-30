@@ -1,7 +1,6 @@
+import 'package:core/common/common.dart';
+import 'package:core/domain/domain.dart';
 import 'package:movies/presentation/presentation.dart';
-
-import '../../../../core/lib/common/state_enum.dart';
-import '../../../../core/lib/domain/entities/movie.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
