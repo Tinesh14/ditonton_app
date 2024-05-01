@@ -29,12 +29,12 @@ void init() async {
 
   // bloc tv series
   locator.registerFactory(
-    () => TvSeriesDetailNotifier(
+    () => TvSeriesDetailBloc(
       getTvSeriesDetail: locator(),
       getTvSeriesRecommendations: locator(),
-      getWatchListStatusTvSeries: locator(),
-      saveWatchlistTvSeries: locator(),
-      removeWatchlistTvSeries: locator(),
+      getWatchListStatus: locator(),
+      saveWatchlist: locator(),
+      removeWatchlist: locator(),
     ),
   );
   locator.registerFactory(() => NowPlayingTvSeriesBloc(locator()));

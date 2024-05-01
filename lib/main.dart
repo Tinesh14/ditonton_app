@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:movies/presentation/presentation.dart';
 import 'package:provider/provider.dart';
 import 'package:ditonton_app/injection.dart' as di;
-import 'package:tv_series/presentation/pages/season_detail_tv_series_page.dart';
 import 'package:tv_series/presentation/presentation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -64,9 +63,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => di.locator<WatchlistTvSeriesBloc>(),
         ),
-        //changenotifierprovider
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TvSeriesDetailNotifier>(),
+        BlocProvider(
+          create: (_) => di.locator<TvSeriesDetailBloc>(),
         ),
       ],
       child: MaterialApp(

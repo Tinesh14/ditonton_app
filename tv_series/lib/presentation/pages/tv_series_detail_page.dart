@@ -1,6 +1,6 @@
 import 'package:core/common/common.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../presentation.dart';
 
@@ -19,33 +19,61 @@ class _TvSeriesDetailPageState extends State<TvSeriesDetailPage> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<TvSeriesDetailNotifier>(context, listen: false)
-          .fetchTvSeriesDetail(widget.id);
-      Provider.of<TvSeriesDetailNotifier>(context, listen: false)
-          .loadWatchlistStatus(widget.id);
+      context.read<TvSeriesDetailBloc>().add(FetchTvSeriesDetail(widget.id));
+      context.read<TvSeriesDetailBloc>().add(LoadWatchlistStatus(widget.id));
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<TvSeriesDetailNotifier>(
-        builder: (context, provider, child) {
-          if (provider.tvSeriesState == RequestState.Loading) {
+      body: BlocConsumer<TvSeriesDetailBloc, TvSeriesDetailState>(
+        listenWhen: (previous, current) {
+          return previous.watchlistMessage != current.watchlistMessage &&
+              current.watchlistMessage != '';
+        },
+        builder: (context, state) {
+          if (state.tvSeriesDetailState == RequestState.Loading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (provider.tvSeriesState == RequestState.Loaded) {
-            final tvSeries = provider.tvSeries;
+          } else if (state.tvSeriesDetailState == RequestState.Loaded) {
+            final tvSeries = state.tvSeriesDetail;
             return SafeArea(
               child: DetailContentTvSeries(
-                tvSeries,
-                provider.tvSeriesRecommendations,
-                provider.isAddedToWatchlist,
+                tvSeries!,
+                state.tvSeriesRecommendations,
+                state.isAddedToWatchlist,
+              ),
+            );
+          } else if (state.tvSeriesDetailState == RequestState.Error) {
+            return Center(child: Text(state.message));
+          } else if (state.tvSeriesDetailState == RequestState.Empty) {
+            return const Center(
+              child: Text('Empty Data'),
+            );
+          } else {
+            return Container();
+          }
+        },
+        listener: (context, state) {
+          final message = state.watchlistMessage;
+          if (message == TvSeriesDetailBloc.watchlistAddSuccessMessage ||
+              message == TvSeriesDetailBloc.watchlistRemoveSuccessMessage) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(message),
               ),
             );
           } else {
-            return Text(provider.message);
+            showDialog(
+              context: context,
+              builder: (_) {
+                return AlertDialog(
+                  content: Text(message),
+                );
+              },
+            );
           }
         },
       ),
