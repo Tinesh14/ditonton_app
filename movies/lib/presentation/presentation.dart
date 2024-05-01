@@ -8,8 +8,6 @@ export 'pages/watchlist_movies_page.dart';
 
 export 'provider/movie_list_notifier.dart';
 export 'provider/movie_search_notifier.dart';
-// export 'provider/now_playing_movie_notifier.dart';
-export 'provider/popular_movies_notifier.dart';
 export 'provider/top_rated_movies_notifier.dart';
 export 'provider/watchlist_movie_notifier.dart';
 

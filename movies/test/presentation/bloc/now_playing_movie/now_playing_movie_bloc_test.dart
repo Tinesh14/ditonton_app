@@ -23,6 +23,9 @@ void main() {
   });
 
   group('Now Playing Movies', () {
+    test('initial state should be empty', () {
+      expect(nowPlayingMoviesBloc.state, NowPlayingMovieEmpty());
+    });
     blocTest<NowPlayingMovieBloc, NowPlayingMovieState>(
       'when data is empty',
       build: () {
