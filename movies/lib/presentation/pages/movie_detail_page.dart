@@ -46,8 +46,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                 state.isAddedToWatchlist,
               ),
             );
+          } else if (state.movieDetailState == RequestState.Error) {
+            return Center(child: Text(state.message));
           } else {
-            return Text(state.message);
+            return Container();
           }
         },
         listener: (context, state) {

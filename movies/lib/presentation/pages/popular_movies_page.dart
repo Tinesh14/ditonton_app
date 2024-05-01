@@ -55,10 +55,14 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
                 },
                 itemCount: state.result.length,
               );
-            } else {
+            } else if (state is PopularMovieError) {
               return const Center(
                 key: Key('error_message'),
                 child: Text('Failed'),
+              );
+            } else {
+              return const Center(
+                child: Text('Empty Data'),
               );
             }
           },

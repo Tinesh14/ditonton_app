@@ -3,7 +3,8 @@
 import 'package:core/common/common.dart';
 import 'package:core/presentation/presentation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:provider/provider.dart';
 
 import '../presentation.dart';
 
@@ -15,6 +16,7 @@ class SearchMoviePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Search Movie'),
       ),
@@ -24,9 +26,10 @@ class SearchMoviePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
-              onSubmitted: (query) {
-                Provider.of<MovieSearchNotifier>(context, listen: false)
-                    .fetchMovieSearch(query);
+              onChanged: (value) {
+                context
+                    .read<SearchMovieBloc>()
+                    .add(SearchMovieOnChanged(value));
               },
               decoration: const InputDecoration(
                 hintText: 'Search title',
@@ -40,19 +43,19 @@ class SearchMoviePage extends StatelessWidget {
               'Search Result',
               style: kHeading6,
             ),
-            Consumer<MovieSearchNotifier>(
-              builder: (context, data, child) {
-                if (data.state == RequestState.Loading) {
+            BlocBuilder<SearchMovieBloc, SearchMovieState>(
+              builder: (context, state) {
+                if (state is SearchMovieLoading) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (data.state == RequestState.Loaded) {
-                  final result = data.searchResult;
+                } else if (state is SearchMovieData) {
+                  final result = state.result;
                   return Expanded(
                     child: ListView.builder(
                       padding: const EdgeInsets.all(8),
                       itemBuilder: (context, index) {
-                        final movie = data.searchResult[index];
+                        final movie = result[index];
                         return CardList(
                           title: movie.title ?? '',
                           posterPath: movie.posterPath ?? '',
@@ -67,6 +70,24 @@ class SearchMoviePage extends StatelessWidget {
                         );
                       },
                       itemCount: result.length,
+                    ),
+                  );
+                } else if (state is SearchMovieEmpty) {
+                  return Expanded(
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Search Not Found', style: kSubtitle),
+                        ],
+                      ),
+                    ),
+                  );
+                } else if (state is SearchMovieError) {
+                  return Expanded(
+                    child: Center(
+                      key: const Key('error_message'),
+                      child: Text(state.message),
                     ),
                   );
                 } else {
