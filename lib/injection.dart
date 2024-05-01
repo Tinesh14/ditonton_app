@@ -42,6 +42,7 @@ void init() async {
   locator.registerFactory(() => TopRatedTvSeriesBloc(locator()));
   locator.registerFactory(() => SearchTvSeriesBloc(locator()));
   locator.registerFactory(() => WatchlistTvSeriesBloc(locator()));
+  locator.registerFactory(() => SeasonDetailTvSeriesBloc(locator()));
 
   // use case movie
   locator.registerLazySingleton(() => GetNowPlayingMovies(locator()));
