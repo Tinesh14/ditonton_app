@@ -1,3 +1,4 @@
+[![Codemagic build status](https://api.codemagic.io/apps/662f54680dcd03554f3ff6f0/662f54680dcd03554f3ff6ef/status_badge.svg)](https://codemagic.io/apps/662f54680dcd03554f3ff6f0/662f54680dcd03554f3ff6ef/latest_build)
 # ditonton_app
 
 A new Flutter project.
