@@ -1,9 +1,6 @@
-// ignore_for_file: constant_identifier_names, library_private_types_in_public_api
-
-import 'package:core/common/common.dart';
 import 'package:core/presentation/presentation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../presentation.dart';
 
@@ -13,16 +10,16 @@ class TopRatedMoviesPage extends StatefulWidget {
   const TopRatedMoviesPage({super.key});
 
   @override
-  _TopRatedMoviesPageState createState() => _TopRatedMoviesPageState();
+  State<TopRatedMoviesPage> createState() => _TopRatedMoviesPageState();
 }
 
 class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<TopRatedMoviesNotifier>(context, listen: false)
-            .fetchTopRatedMovies());
+    Future.microtask(
+      () => context.read<TopRatedMovieBloc>().add(FetchTopRatedMovie()),
+    );
   }
 
   @override
@@ -33,16 +30,16 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<TopRatedMoviesNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
+        child: BlocBuilder<TopRatedMovieBloc, TopRatedMovieState>(
+          builder: (context, state) {
+            if (state is TopRatedMovieLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.Loaded) {
+            } else if (state is TopRatedMovieData) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final movie = data.movies[index];
+                  final movie = state.result[index];
                   return CardList(
                     title: movie.title ?? '',
                     posterPath: movie.posterPath ?? '',
@@ -56,13 +53,19 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
                     },
                   );
                 },
-                itemCount: data.movies.length,
+                itemCount: state.result.length,
               );
-            } else {
+            } else if (state is TopRatedMovieError) {
               return Center(
                 key: const Key('error_message'),
-                child: Text(data.message),
+                child: Text(state.message),
               );
+            } else if (state is TopRatedMovieEmpty) {
+              return const Center(
+                child: Text('Emmpty Data'),
+              );
+            } else {
+              return Container();
             }
           },
         ),

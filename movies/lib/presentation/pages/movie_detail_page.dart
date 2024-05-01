@@ -48,6 +48,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             );
           } else if (state.movieDetailState == RequestState.Error) {
             return Center(child: Text(state.message));
+          } else if (state.movieDetailState == RequestState.Empty) {
+            return const Center(
+              child: Text('Empty Data'),
+            );
           } else {
             return Container();
           }

@@ -56,14 +56,16 @@ class _NowPlayingMoviePageState extends State<NowPlayingMoviePage> {
                 itemCount: state.result.length,
               );
             } else if (state is NowPlayingMovieError) {
-              return const Center(
-                key: Key('error_message'),
-                child: Text('Failed'),
+              return Center(
+                key: const Key('error_message'),
+                child: Text(state.message),
               );
-            } else {
+            } else if (state is NowPlayingMovieEmpty) {
               return const Center(
                 child: Text('Empty Data'),
               );
+            } else {
+              return Container();
             }
           },
         ),

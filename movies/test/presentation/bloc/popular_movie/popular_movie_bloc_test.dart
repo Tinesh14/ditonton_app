@@ -69,5 +69,6 @@ void main() {
       ],
       verify: (bloc) => verify(mockGetPopularMovies.execute()),
     );
+  
   });
 }
