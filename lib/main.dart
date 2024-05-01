@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:movies/presentation/presentation.dart';
 import 'package:provider/provider.dart';
 import 'package:ditonton_app/injection.dart' as di;
+import 'package:tv_series/presentation/pages/season_detail_tv_series_page.dart';
 import 'package:tv_series/presentation/presentation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -45,28 +46,27 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => di.locator<WatchlistMovieBloc>(),
         ),
-
+        BlocProvider(
+          create: (_) => di.locator<SeasonDetailTvSeriesBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<NowPlayingTvSeriesBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<PopularTvSeriesBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<TopRatedTvSeriesBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<SearchTvSeriesBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<WatchlistTvSeriesBloc>(),
+        ),
         //changenotifierprovider
         ChangeNotifierProvider(
-          create: (_) => di.locator<TvSeriesListNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<NowPlayingTvSeriesNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<PopularTvSeriesNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedTvSeriesNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TvSeriesSearchNotifier>(),
-        ),
-        ChangeNotifierProvider(
           create: (_) => di.locator<TvSeriesDetailNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<WatchlistTvSeriesNotifier>(),
         ),
       ],
       child: MaterialApp(
@@ -122,10 +122,10 @@ class MyApp extends StatelessWidget {
                 builder: (_) => TvSeriesDetailPage(id: id),
                 settings: settings,
               );
-            case SeasonDetailPage.routeName:
+            case SeasonDetailTvSeriesPage.routeName:
               final args = settings.arguments as Map;
               return MaterialPageRoute(
-                builder: (_) => SeasonDetailPage(
+                builder: (_) => SeasonDetailTvSeriesPage(
                   id: args['id'],
                   seasonNumber: args['seasonNumber'],
                 ),

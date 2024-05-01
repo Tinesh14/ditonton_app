@@ -29,17 +29,6 @@ void init() async {
 
   // bloc tv series
   locator.registerFactory(
-    () => TvSeriesListNotifier(
-      getNowPlayingTvSeries: locator(),
-      getPopularTvSeries: locator(),
-      getTopRatedTvSeries: locator(),
-    ),
-  );
-  locator.registerFactory(() => NowPlayingTvSeriesNotifier(locator()));
-  locator.registerFactory(() => PopularTvSeriesNotifier(locator()));
-  locator.registerFactory(() => TopRatedTvSeriesNotifier(locator()));
-  locator.registerFactory(() => TvSeriesSearchNotifier(locator()));
-  locator.registerFactory(
     () => TvSeriesDetailNotifier(
       getTvSeriesDetail: locator(),
       getTvSeriesRecommendations: locator(),
@@ -48,14 +37,16 @@ void init() async {
       removeWatchlistTvSeries: locator(),
     ),
   );
-  locator.registerFactory(
-    () => WatchlistTvSeriesNotifier(getWatchlistTvSeries: locator()),
-  );
-  // use case
+  locator.registerFactory(() => NowPlayingTvSeriesBloc(locator()));
+  locator.registerFactory(() => PopularTvSeriesBloc(locator()));
+  locator.registerFactory(() => TopRatedTvSeriesBloc(locator()));
+  locator.registerFactory(() => SearchTvSeriesBloc(locator()));
+  locator.registerFactory(() => WatchlistTvSeriesBloc(locator()));
+
+  // use case movie
   locator.registerLazySingleton(() => GetNowPlayingMovies(locator()));
   locator.registerLazySingleton(() => GetPopularMovies(locator()));
   locator.registerLazySingleton(() => GetTopRatedMovies(locator()));
-
   locator.registerLazySingleton(() => GetMovieDetail(locator()));
   locator.registerLazySingleton(() => GetMovieRecommendations(locator()));
   locator.registerLazySingleton(() => SearchMovies(locator()));
@@ -67,8 +58,8 @@ void init() async {
   // use case tv series
   locator.registerLazySingleton(() => GetNowPlayingTvSeries(locator()));
   locator.registerLazySingleton(() => GetPopularTvSeries(locator()));
+  locator.registerLazySingleton(() => GetSeasonDetailTvSeries(locator()));
   locator.registerLazySingleton(() => GetTopRatedTvSeries(locator()));
-
   locator.registerLazySingleton(() => SearchTvSeries(locator()));
   locator.registerLazySingleton(() => GetTvSeriesDetail(locator()));
   locator.registerLazySingleton(() => GetTvSeriesRecommendations(locator()));
