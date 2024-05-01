@@ -11,6 +11,12 @@ workflows:
             - name: Testing for Modularization Movies
               working_directory: movies
               script: flutter test --coverage
+            - name: Testing for Modularization Tv Series
+              working_directory: tv_series
+              script: flutter test --coverage
+            - name: Testing for Modularization Core
+              working_directory: core
+              script: flutter test --coverage
             - name: Building Android
               script: flutter build appbundle --release
         artifacts:
