@@ -30,7 +30,7 @@ class _WatchlistPageState extends State<WatchlistPage>
   ];
 
   final List<Widget> _listWidget = [
-    WatchlistMoviesPage(),
+    const WatchlistMoviesPage(),
     const WatchlistTvSeriesPage(),
   ];
 

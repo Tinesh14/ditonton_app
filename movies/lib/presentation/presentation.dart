@@ -6,8 +6,6 @@ export 'pages/search_movie_page.dart';
 export 'pages/top_rated_movies_page.dart';
 export 'pages/watchlist_movies_page.dart';
 
-export 'provider/movie_list_notifier.dart';
-
 export 'bloc/movie_detail/movie_detail_bloc.dart';
 export 'bloc/now_playing_movie/now_playing_movie_bloc.dart';
 export 'bloc/popular_movie/popular_movie_bloc.dart';
