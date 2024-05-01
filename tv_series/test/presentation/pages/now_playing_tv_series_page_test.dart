@@ -1,23 +1,35 @@
-import 'package:core/common/common.dart';
-import 'package:core/domain/domain.dart';
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:provider/provider.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:tv_series/presentation/presentation.dart';
 
-import 'now_playing_tv_series_page_test.mocks.dart';
+import '../../dummy_data/dummy_objects.dart';
 
-@GenerateMocks([NowPlayingTvSeriesNotifier])
+class MockNowPlayingTvSeriesBloc
+    extends MockBloc<NowPlayingTvSeriesEvent, NowPlayingTvSeriesState>
+    implements NowPlayingTvSeriesBloc {}
+
+class FakeNowPlayingTvSeriesEvent extends Fake
+    implements NowPlayingTvSeriesEvent {}
+
+class FakeNowPlayingTvSeriesState extends Fake
+    implements NowPlayingTvSeriesState {}
+
 void main() {
-  late MockNowPlayingTvSeriesNotifier mockNotifier;
-  setUp(() {
-    mockNotifier = MockNowPlayingTvSeriesNotifier();
+  late MockNowPlayingTvSeriesBloc mockNowPlayingTvSeriesBloc;
+  setUpAll(() {
+    registerFallbackValue(FakeNowPlayingTvSeriesEvent());
+    registerFallbackValue(FakeNowPlayingTvSeriesState());
   });
+  setUp(() {
+    mockNowPlayingTvSeriesBloc = MockNowPlayingTvSeriesBloc();
+  });
+
   Widget makeTestableWidget(Widget body) {
-    return ChangeNotifierProvider<NowPlayingTvSeriesNotifier>.value(
-      value: mockNotifier,
+    return BlocProvider<NowPlayingTvSeriesBloc>.value(
+      value: mockNowPlayingTvSeriesBloc,
       child: MaterialApp(
         home: body,
       ),
@@ -26,7 +38,8 @@ void main() {
 
   testWidgets('Page should display center progress bar when loading',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loading);
+    when(() => mockNowPlayingTvSeriesBloc.state)
+        .thenReturn(NowPlayingTvSeriesLoading());
 
     final progressBarFinder = find.byType(CircularProgressIndicator);
     final centerFinder = find.byType(Center);
@@ -39,8 +52,8 @@ void main() {
 
   testWidgets('Page should display ListView when data is loaded',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loaded);
-    when(mockNotifier.tvSeries).thenReturn(<TvSeries>[]);
+    when(() => mockNowPlayingTvSeriesBloc.state)
+        .thenReturn(NowPlayingTvSeriesData(const [testTvSeries]));
 
     final listViewFinder = find.byType(ListView);
 
@@ -51,8 +64,8 @@ void main() {
 
   testWidgets('Page should display text with message when Error',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Error);
-    when(mockNotifier.message).thenReturn('Error message');
+    when(() => mockNowPlayingTvSeriesBloc.state)
+        .thenReturn(NowPlayingTvSeriesError('Error message'));
 
     final textFinder = find.byKey(const Key('error_message'));
 

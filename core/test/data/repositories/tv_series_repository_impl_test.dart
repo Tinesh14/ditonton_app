@@ -424,4 +424,35 @@ void main() {
       expect(resultList, [testWatchlistTvSeries]);
     });
   });
+
+  group('get detail season tv series', () {
+    const tId = 1;
+    const tSeasonNumber = 1;
+
+    test(
+        'should return Season data when the call to remote data source is successful',
+        () async {
+      // arrange
+      when(mockRemoteDataSource.getSeasonDetail(tId, tSeasonNumber))
+          .thenAnswer((_) async => tSeasonDetailResponse);
+      // act
+      final result = await repository.getSeasonDetail(tId, tSeasonNumber);
+      // assert
+      verify(mockRemoteDataSource.getSeasonDetail(tId, tSeasonNumber));
+      expect(result, equals(const Right(tSeasonDetail)));
+    });
+
+    test(
+        'should return Server Failure when the call to remote data source is unsuccessful',
+        () async {
+      // arrange
+      when(mockRemoteDataSource.getTvSeriesDetail(tId))
+          .thenThrow(ServerException());
+      // act
+      final result = await repository.getTvSeriesDetail(tId);
+      // assert
+      verify(mockRemoteDataSource.getTvSeriesDetail(tId));
+      expect(result, equals(const Left(ServerFailure(''))));
+    });
+  });
 }

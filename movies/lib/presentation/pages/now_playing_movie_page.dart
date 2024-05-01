@@ -30,7 +30,8 @@ class _NowPlayingMoviePageState extends State<NowPlayingMoviePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: BlocBuilder<NowPlayingMovieBloc, NowPlayingMovieState>(
+        child: 
+        BlocBuilder<NowPlayingMovieBloc, NowPlayingMovieState>(
           builder: (context, state) {
             if (state is NowPlayingMovieLoading) {
               return const Center(

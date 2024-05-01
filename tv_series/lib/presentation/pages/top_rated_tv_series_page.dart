@@ -1,7 +1,6 @@
-import 'package:core/common/common.dart';
 import 'package:core/presentation/presentation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../presentation.dart';
 
@@ -19,8 +18,7 @@ class _TopRatedTvSeriesPageState extends State<TopRatedTvSeriesPage> {
   void initState() {
     super.initState();
     Future.microtask(() =>
-        Provider.of<TopRatedTvSeriesNotifier>(context, listen: false)
-            .fetchTopRatedTvSeries());
+        context.read<TopRatedTvSeriesBloc>().add(FetchTopRatedTvSeries()));
   }
 
   @override
@@ -30,41 +28,46 @@ class _TopRatedTvSeriesPageState extends State<TopRatedTvSeriesPage> {
         title: const Text('Top Rated TV Series'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Consumer<TopRatedTvSeriesNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (data.state == RequestState.Loaded) {
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  final tvSeries = data.tvSeries[index];
-                  return CardList(
-                    title: tvSeries.name ?? '-',
-                    overview: tvSeries.overview ?? '-',
-                    posterPath: '${tvSeries.posterPath}',
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        TvSeriesDetailPage.routeName,
-                        arguments: tvSeries.id,
-                      );
-                    },
-                  );
-                },
-                itemCount: data.tvSeries.length,
-              );
-            } else {
-              return Center(
-                key: const Key('error_message'),
-                child: Text(data.message),
-              );
-            }
-          },
-        ),
-      ),
+          padding: const EdgeInsets.all(8.0),
+          child: BlocBuilder<TopRatedTvSeriesBloc, TopRatedTvSeriesState>(
+            builder: (context, state) {
+              if (state is TopRatedTvSeriesLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is TopRatedTvSeriesData) {
+                return ListView.builder(
+                  itemBuilder: (context, index) {
+                    final tvSeries = state.result[index];
+                    return CardList(
+                      title: tvSeries.name ?? '',
+                      posterPath: tvSeries.posterPath ?? '',
+                      overview: tvSeries.overview ?? '',
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          TvSeriesDetailPage.routeName,
+                          arguments: tvSeries.id,
+                        );
+                      },
+                    );
+                  },
+                  itemCount: state.result.length,
+                );
+              } else if (state is TopRatedTvSeriesError) {
+                return Center(
+                  key: const Key('error_message'),
+                  child: Text(state.message),
+                );
+              } else if (state is TopRatedTvSeriesEmpty) {
+                return const Center(
+                  child: Text('Emmpty Data'),
+                );
+              } else {
+                return Container();
+              }
+            },
+          )),
     );
   }
 }

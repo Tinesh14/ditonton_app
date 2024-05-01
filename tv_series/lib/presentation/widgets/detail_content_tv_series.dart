@@ -139,35 +139,9 @@ class DetailContentTvSeries extends StatelessWidget {
                               'Seasons',
                               style: kHeading6,
                             ),
-                            SizedBox(
-                              height: 70,
-                              child: ListView(
-                                scrollDirection: Axis.horizontal,
-                                children: tvSeries.seasons.map((season) {
-                                  return Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            season.name,
-                                            style: kSubtitle,
-                                          ),
-                                          Text(
-                                            'Episode count: ${season.episodeCount}',
-                                            style: kBodyText,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
+                            TvSeriesSeasonList(
+                              tvId: tvSeries.id,
+                              seasons: tvSeries.seasons,
                             ),
                             const SizedBox(height: 16),
                             Text(
@@ -280,5 +254,93 @@ class DetailContentTvSeries extends StatelessWidget {
     }
 
     return result.substring(0, result.length - 2);
+  }
+}
+
+class TvSeriesSeasonList extends StatelessWidget {
+  final int tvId;
+  final List<Season> seasons;
+
+  const TvSeriesSeasonList({
+    required this.tvId,
+    required this.seasons,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 150,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          final season = seasons[index];
+          return Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: InkWell(
+              onTap: () => Navigator.pushNamed(
+                context,
+                SeasonDetailTvSeriesPage.routeName,
+                arguments: {
+                  'id': tvId,
+                  'seasonNumber': season.seasonNumber,
+                },
+              ),
+              child: Container(
+                width: 100,
+                decoration: BoxDecoration(
+                  color: Colors.grey[800],
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Column(
+                  children: [
+                    Flexible(
+                      flex: 3,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: CachedNetworkImage(
+                          imageUrl: season.posterPath != null
+                              ? '$BASE_IMAGE_URL${season.posterPath}'
+                              : 'https://i.ibb.co/TWLKGMY/No-Image-Available.jpg',
+                          width: 100,
+                          fit: BoxFit.cover,
+                          placeholder: (_, __) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          },
+                          errorWidget: (_, __, error) {
+                            return Container(
+                              color: Colors.black26,
+                              child: const Center(
+                                child: Text('No Image'),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Center(
+                          child: Text(
+                            season.name,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+        itemCount: seasons.length,
+      ),
+    );
   }
 }

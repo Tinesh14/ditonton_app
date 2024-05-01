@@ -1,7 +1,6 @@
-import 'package:core/common/common.dart';
 import 'package:core/presentation/presentation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../presentation.dart';
 
@@ -18,9 +17,8 @@ class _PopularTvSeriesPageState extends State<PopularTvSeriesPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<PopularTvSeriesNotifier>(context, listen: false)
-            .fetchPopularTvSeries());
+    Future.microtask(
+        () => context.read<PopularTvSeriesBloc>().add(FetchPopularTvSeries()));
   }
 
   @override
@@ -31,20 +29,20 @@ class _PopularTvSeriesPageState extends State<PopularTvSeriesPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<PopularTvSeriesNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
+        child: BlocBuilder<PopularTvSeriesBloc, PopularTvSeriesState>(
+          builder: (context, state) {
+            if (state is PopularTvSeriesLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.Loaded) {
+            } else if (state is PopularTvSeriesData) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final tvSeries = data.tvSeries[index];
+                  final tvSeries = state.result[index];
                   return CardList(
-                    title: tvSeries.name ?? '-',
-                    overview: tvSeries.overview ?? '-',
-                    posterPath: '${tvSeries.posterPath}',
+                    title: tvSeries.name ?? '',
+                    posterPath: tvSeries.posterPath ?? '',
+                    overview: tvSeries.overview ?? '',
                     onTap: () {
                       Navigator.pushNamed(
                         context,
@@ -54,13 +52,19 @@ class _PopularTvSeriesPageState extends State<PopularTvSeriesPage> {
                     },
                   );
                 },
-                itemCount: data.tvSeries.length,
+                itemCount: state.result.length,
               );
-            } else {
+            } else if (state is PopularTvSeriesError) {
               return Center(
                 key: const Key('error_message'),
-                child: Text(data.message),
+                child: Text(state.message),
               );
+            } else if (state is PopularTvSeriesEmpty) {
+              return const Center(
+                child: Text('Empty Data'),
+              );
+            } else {
+              return Container();
             }
           },
         ),

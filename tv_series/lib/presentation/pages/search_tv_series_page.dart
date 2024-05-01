@@ -1,7 +1,7 @@
 import 'package:core/common/common.dart';
 import 'package:core/presentation/presentation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../presentation.dart';
 
@@ -22,9 +22,10 @@ class SearchTvSeriesPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
-              onSubmitted: (query) {
-                Provider.of<TvSeriesSearchNotifier>(context, listen: false)
-                    .fetchTvSeriesSearch(query);
+              onSubmitted: (value) {
+                context
+                    .read<SearchTvSeriesBloc>()
+                    .add(SearchTvSeriesOnChanged(value));
               },
               decoration: const InputDecoration(
                 hintText: 'Search title',
@@ -38,23 +39,23 @@ class SearchTvSeriesPage extends StatelessWidget {
               'Search Result',
               style: kHeading6,
             ),
-            Consumer<TvSeriesSearchNotifier>(
-              builder: (context, data, child) {
-                if (data.state == RequestState.Loading) {
+            BlocBuilder<SearchTvSeriesBloc, SearchTvSeriesState>(
+              builder: (context, state) {
+                if (state is SearchTvSeriesLoading) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (data.state == RequestState.Loaded) {
-                  final result = data.searchResult;
+                } else if (state is SearchTvSeriesData) {
+                  final result = state.result;
                   return Expanded(
                     child: ListView.builder(
                       padding: const EdgeInsets.all(8),
                       itemBuilder: (context, index) {
-                        final tvSeries = data.searchResult[index];
+                        final tvSeries = result[index];
                         return CardList(
-                          title: tvSeries.name ?? '-',
-                          overview: tvSeries.overview ?? '-',
-                          posterPath: '${tvSeries.posterPath}',
+                          title: tvSeries.name ?? '',
+                          posterPath: tvSeries.posterPath ?? '',
+                          overview: tvSeries.overview ?? '',
                           onTap: () {
                             Navigator.pushNamed(
                               context,
@@ -65,6 +66,24 @@ class SearchTvSeriesPage extends StatelessWidget {
                         );
                       },
                       itemCount: result.length,
+                    ),
+                  );
+                } else if (state is SearchTvSeriesEmpty) {
+                  return Expanded(
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Search Not Found', style: kSubtitle),
+                        ],
+                      ),
+                    ),
+                  );
+                } else if (state is SearchTvSeriesError) {
+                  return Expanded(
+                    child: Center(
+                      key: const Key('error_message'),
+                      child: Text(state.message),
                     ),
                   );
                 } else {

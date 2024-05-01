@@ -1,5 +1,6 @@
 export 'usecases/get_now_playing_tv_series.dart';
 export 'usecases/get_popular_tv_series.dart';
+export 'usecases/get_season_detail_tv_series.dart';
 export 'usecases/get_top_rated_tv_series.dart';
 export 'usecases/get_tv_series_detail.dart';
 export 'usecases/get_tv_series_recommendations.dart';

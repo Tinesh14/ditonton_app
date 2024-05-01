@@ -127,3 +127,48 @@ final testTvSeriesMap = {
   'posterPath': 'posterPath',
   'overview': 'overview',
 };
+const tSeasonDetailResponse = SeasonDetailResponse(
+  id: 1,
+  airDate: '2020-10-10',
+  episodes: [
+    EpisodeModel(
+      airDate: '2020-10-10',
+      episodeNumber: 1,
+      id: 1,
+      name: 'name',
+      overview: 'overview',
+      productionCode: 'productionCode',
+      seasonNumber: 1,
+      stillPath: 'stillPath',
+      voteAverage: 8.3,
+      voteCount: 1500,
+    )
+  ],
+  name: 'name',
+  overview: 'overview',
+  posterPath: 'posterPath',
+  seasonNumber: 1,
+);
+
+const tSeasonDetail = SeasonDetail(
+  id: 1,
+  airDate: '2020-10-10',
+  episodes: [
+    Episode(
+      airDate: '2020-10-10',
+      episodeNumber: 1,
+      id: 1,
+      name: 'name',
+      overview: 'overview',
+      productionCode: 'productionCode',
+      seasonNumber: 1,
+      stillPath: 'stillPath',
+      voteAverage: 8.3,
+      voteCount: 1500,
+    )
+  ],
+  name: 'name',
+  overview: 'overview',
+  posterPath: 'posterPath',
+  seasonNumber: 1,
+);

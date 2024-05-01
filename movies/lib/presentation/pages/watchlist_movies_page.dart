@@ -40,7 +40,8 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: BlocBuilder<WatchlistMovieBloc, WatchlistMovieState>(
+        child: 
+        BlocBuilder<WatchlistMovieBloc, WatchlistMovieState>(
           builder: (context, state) {
             if (state is WatchlistMovieLoading) {
               return const Center(

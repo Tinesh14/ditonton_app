@@ -3,6 +3,8 @@ export 'movie/movie_detail_model.dart';
 export 'movie/movie_response.dart';
 export 'movie/movie_table.dart';
 export 'movie/genre_model.dart';
+export 'tv_series/episode_model.dart';
+export 'tv_series/season_detail_model.dart';
 export 'tv_series/season_model.dart';
 export 'tv_series/tv_series_detail_model.dart';
 export 'tv_series/tv_series_model.dart';

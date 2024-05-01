@@ -206,4 +206,34 @@ void main() {
       expect(() => call, throwsA(isA<ServerException>()));
     });
   });
+  group('Get Season Detail', () {
+    const tId = 1;
+    const tSeasonNumber = 1;
+    final tSeasonDetail = SeasonDetailResponse.fromJson(
+        json.decode(readJson('dummy_data/tv_series/season_detail.json')));
+
+    test('should return season detail when the response code is 200', () async {
+      // arrange
+      when(mockHttpClient.get(
+              Uri.parse('$BASE_URL/tv/$tId/season/$tSeasonNumber?$API_KEY')))
+          .thenAnswer((_) async => http.Response(
+              readJson('dummy_data/tv_series/season_detail.json'), 200));
+      // act
+      final result = await dataSource.getSeasonDetail(tId, tSeasonNumber);
+      // assert
+      expect(result, equals(tSeasonDetail));
+    });
+
+    test('should throw Server Exception when the response code is 404 or other',
+        () async {
+      // arrange
+      when(mockHttpClient.get(
+              Uri.parse('$BASE_URL/tv/$tId/season/$tSeasonNumber?$API_KEY')))
+          .thenAnswer((_) async => http.Response('Not Found', 404));
+      // act
+      final call = dataSource.getSeasonDetail(tId, tSeasonNumber);
+      // assert
+      expect(() => call, throwsA(isA<ServerException>()));
+    });
+  });
 }
