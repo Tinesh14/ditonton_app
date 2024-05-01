@@ -1,7 +1,6 @@
-import 'package:core/common/common.dart';
 import 'package:core/presentation/presentation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../presentation.dart';
 
@@ -18,9 +17,9 @@ class _NowPlayingMoviePageState extends State<NowPlayingMoviePage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<NowPlayingMoviesNotifier>(context, listen: false)
-            .fetchNowPlayingMovies());
+    Future.microtask(
+      () => context.read<NowPlayingMovieBloc>().add(FetchNowPlayingMovie()),
+    );
   }
 
   @override
@@ -31,16 +30,16 @@ class _NowPlayingMoviePageState extends State<NowPlayingMoviePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<NowPlayingMoviesNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
+        child: BlocBuilder<NowPlayingMovieBloc, NowPlayingMovieState>(
+          builder: (context, state) {
+            if (state is NowPlayingMovieLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.Loaded) {
+            } else if (state is NowPlayingMovieData) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final movie = data.movies[index];
+                  final movie = state.result[index];
                   return CardList(
                     title: movie.title ?? '',
                     posterPath: movie.posterPath ?? '',
@@ -54,12 +53,12 @@ class _NowPlayingMoviePageState extends State<NowPlayingMoviePage> {
                     },
                   );
                 },
-                itemCount: data.movies.length,
+                itemCount: state.result.length,
               );
             } else {
-              return Center(
-                key: const Key('error_message'),
-                child: Text(data.message),
+              return const Center(
+                key: Key('error_message'),
+                child: Text('Failed'),
               );
             }
           },
