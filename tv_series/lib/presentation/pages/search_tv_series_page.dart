@@ -22,7 +22,7 @@ class SearchTvSeriesPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
-              onSubmitted: (value) {
+              onChanged: (value) {
                 context
                     .read<SearchTvSeriesBloc>()
                     .add(SearchTvSeriesOnChanged(value));
