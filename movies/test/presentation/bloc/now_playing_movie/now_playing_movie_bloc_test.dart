@@ -64,7 +64,6 @@ void main() {
         return nowPlayingMoviesBloc;
       },
       act: (bloc) => bloc.add(FetchNowPlayingMovie()),
-      wait: const Duration(milliseconds: 100),
       expect: () => [
         NowPlayingMovieLoading(),
         NowPlayingMovieError('Server Failure'),

@@ -8,7 +8,7 @@ import 'package:movies/domain/domain.dart';
 import 'package:movies/presentation/presentation.dart';
 
 import '../../../dummy_data/dummy_objects.dart';
-import 'top_rated_bloc_test.mocks.dart';
+import 'top_rated_movie_bloc_test.mocks.dart';
 
 @GenerateMocks([GetTopRatedMovies])
 void main() {
@@ -63,7 +63,6 @@ void main() {
         return topRatedMovieBloc;
       },
       act: (bloc) => bloc.add(FetchTopRatedMovie()),
-      wait: const Duration(milliseconds: 100),
       expect: () => [
         TopRatedMovieLoading(),
         TopRatedMovieError('Server Failure'),

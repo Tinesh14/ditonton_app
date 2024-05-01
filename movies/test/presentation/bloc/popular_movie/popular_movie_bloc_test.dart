@@ -62,13 +62,11 @@ void main() {
         return popularMovieBloc;
       },
       act: (bloc) => bloc.add(FetchPopularMovie()),
-      wait: const Duration(milliseconds: 100),
       expect: () => [
         PopularMovieLoading(),
         PopularMovieError('Server Failure'),
       ],
       verify: (bloc) => verify(mockGetPopularMovies.execute()),
     );
-  
   });
 }
