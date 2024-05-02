@@ -10,7 +10,7 @@ import 'package:tv_series/presentation/presentation.dart';
 
 final locator = GetIt.instance;
 
-void init() async {
+Future<void> init() async {
   // bloc movies
   locator.registerFactory(
     () => MovieDetailBloc(
@@ -98,5 +98,5 @@ void init() async {
 
   // external
   IOClient ioClient = await SslPinning.ioClient;
-  locator.registerLazySingleton(() => ioClient);
+  locator.registerLazySingleton<IOClient>(() => ioClient);
 }
