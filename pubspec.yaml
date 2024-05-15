@@ -40,11 +40,11 @@ dependencies:
   provider: ^6.0.3
   get_it: ^7.1.3
   movies:
-    path: movies
+    path: packages/movies
   tv_series:
-    path: tv_series
+    path: packages/tv_series
   core: 
-    path: core
+    path: packages/core
   firebase_core: ^2.30.1
   firebase_crashlytics: ^3.5.4
   flutter_bloc: ^8.1.5
